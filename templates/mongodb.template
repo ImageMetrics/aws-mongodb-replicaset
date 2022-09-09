@@ -128,7 +128,7 @@
             "Type": "String",
             "Default": "4.2",
             "AllowedValues": [
-                "6.0"
+                "6.0",
                 "5.0",
                 "4.2",
                 "4.0",
