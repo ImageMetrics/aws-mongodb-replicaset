@@ -11,4 +11,4 @@ aws cloudformation package \
 aws s3 cp --recursive ./templates s3://${DEPLOYMENT_BUCKET}/deployment_${GIT_HASH}/templates 
 aws s3 cp --recursive ./submodules s3://${DEPLOYMENT_BUCKET}/deployment_${GIT_HASH}/submodules
 aws s3 cp --recursive ./scripts s3://${DEPLOYMENT_BUCKET}/deployment_${GIT_HASH}/scripts
-aws s3 cp --recursive ./packaged-template.template s3://${DEPLOYMENT_BUCKET}/deployment_${GIT_HASH}/packaged-template.template
+aws s3 cp ./packaged-template.template s3://${DEPLOYMENT_BUCKET}/deployment_${GIT_HASH}/packaged-template.template
