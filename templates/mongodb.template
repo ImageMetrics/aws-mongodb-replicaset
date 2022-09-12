@@ -436,12 +436,20 @@
                                     ],
                                     "Resource": {
                                         "Fn::Sub": [
-                                           "arn:${AWS::Partition}:s3:::${S3Bucket}/${QSS3KeyPrefix}*",
-                                           {
-                                               "S3Bucket": {
-                                                   "Fn::If": ["UsingDefaultBucket",  { "Fn::Sub": "${QSS3BucketName}-${AWS::Region}" }, {"Ref": "QSS3BucketName"}]
-                                               }
-                                           }
+                                            "arn:${AWS::Partition}:s3:::${S3Bucket}/${QSS3KeyPrefix}*",
+                                            {
+                                                "S3Bucket": {
+                                                    "Fn::If": [
+                                                        "UsingDefaultBucket",
+                                                        {
+                                                            "Fn::Sub": "${QSS3BucketName}-${AWS::Region}"
+                                                        },
+                                                        {
+                                                            "Ref": "QSS3BucketName"
+                                                        }
+                                                    ]
+                                                }
+                                            }
                                         ]
                                     }
                                 },
@@ -464,6 +472,49 @@
                                             "Fn::Sub": "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*MONGODB_*"
                                         }
                                     ]
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ssm:DescribeAssociation",
+                                        "ssm:GetDeployablePatchSnapshotForInstance",
+                                        "ssm:GetDocument",
+                                        "ssm:DescribeDocument",
+                                        "ssm:GetManifest",
+                                        "ssm:GetParameter",
+                                        "ssm:GetParameters",
+                                        "ssm:ListAssociations",
+                                        "ssm:ListInstanceAssociations",
+                                        "ssm:PutInventory",
+                                        "ssm:PutComplianceItems",
+                                        "ssm:PutConfigurePackageResult",
+                                        "ssm:UpdateAssociationStatus",
+                                        "ssm:UpdateInstanceAssociationStatus",
+                                        "ssm:UpdateInstanceInformation"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ssmmessages:CreateControlChannel",
+                                        "ssmmessages:CreateDataChannel",
+                                        "ssmmessages:OpenControlChannel",
+                                        "ssmmessages:OpenDataChannel"
+                                    ],
+                                    "Resource": "*"
+                                },
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "ec2messages:AcknowledgeMessage",
+                                        "ec2messages:DeleteMessage",
+                                        "ec2messages:FailMessage",
+                                        "ec2messages:GetEndpoint",
+                                        "ec2messages:GetMessages",
+                                        "ec2messages:SendReply"
+                                    ],
+                                    "Resource": "*"
                                 }
                             ]
                         }
