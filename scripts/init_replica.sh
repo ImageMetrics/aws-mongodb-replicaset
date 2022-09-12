@@ -43,7 +43,7 @@ enabled=1" > /etc/yum.repos.d/mongodb-org-${version}.repo
 else
 echo "[mongodb-org-${version}]
 name=MongoDB Repository
-baseurl=http://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/${version}/x86_64/
+baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/${version}/x86_64/
 gpgcheck=0
 enabled=1" > /etc/yum.repos.d/mongodb-org-${version}.repo
 fi
