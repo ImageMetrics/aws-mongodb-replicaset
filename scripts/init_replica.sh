@@ -126,7 +126,7 @@ check_primary() {
     expected_state=$1
     master_substr=\"ismaster\"\ :\ ${expected_state}
     while true; do
-      check_master=$( mongo --eval "printjson(db.isMaster())" )
+      check_master=$( mongosh --eval "printjson(db.isMaster())" )
       log "${check_master}..."
       if [[ $check_master == *"$master_substr"* ]]; then
         log "Node is in desired state, proceed with security setup"
@@ -153,7 +153,7 @@ setup_security_primary() {
     port=27017
     MONGO_PASSWORD=$( cat /tmp/mongo_pass.txt )
 
-mongo --port ${port} << EOF
+mongosh --port ${port} << EOF
 use admin;
 db.createUser(
   {
@@ -314,9 +314,9 @@ if [[ "$NODE_TYPE" == "Primary" ]]; then
         echo ${addr}:${port}
         while [ true ]; do
 
-            echo "mongo --host ${addr} --port ${port}"
+            echo "mongosh --host ${addr} --port ${port}"
 
-mongo --host ${addr} --port ${port} << EOF
+mongosh --host ${addr} --port ${port} << EOF
 use admin
 EOF
 
@@ -356,7 +356,7 @@ EOF
         conf=${conf}"]}"
         echo ${conf}
 
-mongo --port ${port} << EOF
+mongosh --port ${port} << EOF
 rs.initiate(${conf})
 EOF
 
@@ -372,7 +372,7 @@ EOF
         conf="${conf}{\"_id\" : 1, \"host\" :\"${IP}:${port}\", \"priority\":${priority}}"
         conf=${conf}"]}"
 
-mongo --port ${port} << EOF
+mongosh --port ${port} << EOF
 rs.initiate(${conf})
 EOF
 
@@ -386,7 +386,7 @@ EOF
     ./orchestrator.sh -w "FINISHED=${NODES}" -n "${SHARD}_${UNIQUE_NAME}"
 
     echo "Setting up security, bootstrap table: " "${SHARD}_${UNIQUE_NAME}"
-    # wait for mongo to become primary
+    # wait for mongosh to become primary
     sleep 10
     check_primary true
 
