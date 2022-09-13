@@ -124,11 +124,10 @@ enable_all_listen() {
 
 check_primary() {
     expected_state=$1
-    master_substr=\"ismaster\"\ :\ ${expected_state}
     while true; do
       check_master=$( mongosh --quiet --eval "printjson(db.isMaster().ismaster)" )
       log "${check_master}..."
-      if [[ $check_master == *"$master_substr"* ]]; then
+      if [[ $check_master == $expected_state ]]; then
         log "Node is in desired state, proceed with security setup"
         break
       else
