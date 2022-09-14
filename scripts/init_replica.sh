@@ -158,8 +158,6 @@ EOF
     systemctl  stop mongod 
     ./orchestrator.sh -k -n $DDB_TABLE
     sleep 5
-    setup_security_common $DDB_TABLE
-    sleep 5
     systemctl  start mongod 
     sleep 10
     ./orchestrator.sh -s "SECURED" -n $DDB_TABLE
@@ -385,7 +383,6 @@ EOF
 
     ./orchestrator.sh -w "SECURED=${NODES}" -n "${SHARD}_${UNIQUE_NAME}"
     ./orchestrator.sh -d -n "${SHARD}_${UNIQUE_NAME}"
-    rm /tmp/mongo_pass.txt
 else
     #################################################################
     #  Update status of Secondary to FINISHED
@@ -395,11 +392,8 @@ else
 
     ./orchestrator.sh -w "SECURED=1" -n "${SHARD}_${UNIQUE_NAME}"
     systemctl stop mongod
-    setup_security_common "${SHARD}_${UNIQUE_NAME}"
     systemctl start mongod
     ./orchestrator.sh -s "SECURED" -n "${SHARD}_${UNIQUE_NAME}"
-    rm /tmp/mongo_pass.txt
-
 fi
 
 # TBD - Add custom CloudWatch Metrics for MongoDB
