@@ -143,24 +143,16 @@ setup_security_common() {
     echo $auth_key > /mongo_auth/mongodb.key
     chmod 400 /mongo_auth/mongodb.key
     chown -R mongod:mongod /mongo_auth
-    sed $'s/processManagement:/security: \\\n  authorization: enabled \\\n  keyFile: \/mongo_auth\/mongodb.key \\\n\\\n&/g' /etc/mongod.conf >> /tmp/mongod_sec.txt
+    sed $'s/processManagement:/security: \\\n  authorization: disabled \\\n  keyFile: \/mongo_auth\/mongodb.key \\\n\\\n&/g' /etc/mongod.conf >> /tmp/mongod_sec.txt
     mv /tmp/mongod_sec.txt /etc/mongod.conf
 }
 
 setup_security_primary() {
     DDB_TABLE=$1
     port=27017
-    MONGO_PASSWORD=$( cat /tmp/mongo_pass.txt )
 
 mongosh --quiet --port ${port} << EOF
 use admin;
-db.createUser(
-  {
-    user: "${MONGODB_ADMIN_USER}",
-    pwd: "${MONGO_PASSWORD}",
-    roles: [ { role: "root", db: "admin" } ]
-  }
-);
 EOF
 
     systemctl  stop mongod 

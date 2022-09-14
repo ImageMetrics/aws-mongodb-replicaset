@@ -32,8 +32,6 @@ Metadata:
           - ClusterReplicaSetCount
           - Iops
           - MongoDBVersion
-          - MongoDBAdminUsername
-          - MongoDBAdminPassword
           - NodeInstanceType
           - ReplicaShardIndex
           - VolumeSize
@@ -59,10 +57,6 @@ Metadata:
         default: Key Pair Name
       NumBastionHosts:
         default: Number of Bastion Hosts
-      MongoDBAdminPassword:
-        default: MongoDB Admin Password
-      MongoDBAdminUsername:
-        default: MongoDB Admin Username
       MongoDBVersion:
         default: MongoDB Version
       NodeInstanceType:
@@ -313,24 +307,6 @@ Parameters:
       - '4.0'
       - '3.6'
       - '3.4'
-  MongoDBAdminUsername:
-    Default: admin
-    NoEcho: 'true'
-    Description: MongoDB admin account username
-    Type: String
-    MinLength: '1'
-    MaxLength: '16'
-    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
-    ConstraintDescription: must begin with a letter and contain only alphanumeric
-      characters.
-  MongoDBAdminPassword:
-    AllowedPattern: ([A-Za-z0-9_@-]{8,32})
-    ConstraintDescription: Input your MongoDB database password, Min 8, Maximum of
-      32 characters.
-    Description: 'Enter your MongoDB Database Password, Min 8, maximum of 32 characters.
-      Allowed characters are: [A-Za-z0-9_@-]'
-    NoEcho: 'true'
-    Type: String
   ClusterReplicaSetCount:
     Default: '3'
     Type: String
@@ -434,8 +410,6 @@ Resources:
         Iops: !Ref 'Iops'
         KeyPairName: !Ref 'KeyPairName'
         MongoDBVersion: !Ref 'MongoDBVersion'
-        MongoDBAdminUsername: !Ref 'MongoDBAdminUsername'
-        MongoDBAdminPassword: !Ref 'MongoDBAdminPassword'
         NodeInstanceType: !Ref 'NodeInstanceType'
         PrimaryNodeSubnet: !GetAtt 'VPCStack.Outputs.PrivateSubnet1AID'
         Secondary0NodeSubnet: !GetAtt 'VPCStack.Outputs.PrivateSubnet2AID'

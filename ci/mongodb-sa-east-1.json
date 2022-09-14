@@ -20,10 +20,6 @@
     "ParameterValue": "sa-east-1b,sa-east-1c"
   },
   {
-    "ParameterValue": "$[taskcat_genpass_10A]",
-    "ParameterKey": "MongoDBAdminPassword"
-  },
-  {
     "ParameterKey":"QSS3BucketName",
     "ParameterValue":"$[taskcat_autobucket]"
   }

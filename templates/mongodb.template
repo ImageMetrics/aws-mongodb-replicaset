@@ -32,8 +32,6 @@
                         "ClusterReplicaSetCount",
                         "Iops",
                         "MongoDBVersion",
-                        "MongoDBAdminUsername",
-                        "MongoDBAdminPassword",
                         "NodeInstanceType",
                         "ReplicaShardIndex",
                         "VolumeSize",
@@ -63,12 +61,6 @@
                 },
                 "KeyPairName": {
                     "default": "Key Pair Name"
-                },
-                "MongoDBAdminPassword": {
-                    "default": "MongoDB Admin Password"
-                },
-                "MongoDBAdminUsername": {
-                    "default": "MongoDB Admin Username"
                 },
                 "MongoDBVersion": {
                     "default": "MongoDB Version"
@@ -135,23 +127,6 @@
                 "3.6",
                 "3.4"
             ]
-        },
-        "MongoDBAdminUsername": {
-            "Default": "admin",
-            "NoEcho": "true",
-            "Description": "MongoDB admin account username",
-            "Type": "String",
-            "MinLength": "1",
-            "MaxLength": "16",
-            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
-            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
-        },
-        "MongoDBAdminPassword": {
-            "AllowedPattern": "([A-Za-z0-9_@-]{8,32})",
-            "ConstraintDescription": "Input your MongoDB database password, Min 8, Maximum of 32 characters. . Allowed characters are: [A-Za-z0-9_@-]",
-            "Description": "Enter your MongoDB Database Password, Min 8, maximum of 32 characters.",
-            "NoEcho": "true",
-            "Type": "String"
         },
         "ReplicaShardIndex": {
             "Description": "Shard Index of this replica set",
@@ -575,12 +550,6 @@
                     "MongoDBVersion": {
                         "Ref": "MongoDBVersion"
                     },
-                    "MongoDBAdminUsername": {
-                        "Ref": "MongoDBAdminUsername"
-                    },
-                    "MongoDBAdminPassword": {
-                        "Ref": "MongoDBAdminPassword"
-                    },
                     "NodeInstanceType": {
                         "Ref": "NodeInstanceType"
                     },
@@ -672,12 +641,6 @@
                     },
                     "MongoDBVersion": {
                         "Ref": "MongoDBVersion"
-                    },
-                    "MongoDBAdminUsername": {
-                        "Ref": "MongoDBAdminUsername"
-                    },
-                    "MongoDBAdminPassword": {
-                        "Ref": "MongoDBAdminPassword"
                     },
                     "NodeInstanceType": {
                         "Ref": "NodeInstanceType"
@@ -771,12 +734,6 @@
                     },
                     "MongoDBVersion": {
                         "Ref": "MongoDBVersion"
-                    },
-                    "MongoDBAdminUsername": {
-                        "Ref": "MongoDBAdminUsername"
-                    },
-                    "MongoDBAdminPassword": {
-                        "Ref": "MongoDBAdminPassword"
                     },
                     "NodeInstanceType": {
                         "Ref": "NodeInstanceType"

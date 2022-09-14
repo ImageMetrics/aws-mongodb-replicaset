@@ -142,23 +142,6 @@ Parameters:
       - '4.0'
       - '3.6'
       - '3.4'
-  MongoDBAdminUsername:
-    Default: admin
-    NoEcho: 'true'
-    Description: MongoDB admin account username
-    Type: String
-    MinLength: '1'
-    MaxLength: '16'
-    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
-    ConstraintDescription: must begin with a letter and contain only alphanumeric
-      characters.
-  MongoDBAdminPassword:
-    AllowedPattern: ([A-Za-z0-9_@-]{8,32})
-    ConstraintDescription: 'Input your MongoDB database password, Min 8, Maximum of
-      32 characters. . Allowed characters are: [A-Za-z0-9_@-]'
-    Description: Enter your MongoDB Database Password, Min 8, maximum of 32 characters.
-    NoEcho: 'true'
-    Type: String
   ReplicaNodeWaitForNodeInstallWaitHandle:
     Description: Pre-signed Wait Handle URL to send signal for associated wait condition
     Type: String
@@ -249,16 +232,6 @@ Resources:
           Value: Private
   ReplicaNodeInstance:
     Type: AWS::EC2::Instance
-    Metadata:
-      HostRole: MongoDB Node
-      AWS::CloudFormation::Init:
-        config:
-          files:
-            /tmp/mongo_pass.txt:
-              content: !Ref 'MongoDBAdminPassword'
-              mode: '000440'
-              owner: root
-              group: root
     Properties:
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref 'ReplicaNodeNetworkInterface'
@@ -330,7 +303,6 @@ Resources:
             Param4: !Sub 'export MongoDBVersion=${MongoDBVersion}'
             Param5: !Sub 'export VPC=${VPC}'
             Param6: !Sub '"export WAITHANDLER=''${ReplicaNodeWaitForNodeInstallWaitHandle}''"'
-            Param7: !Sub 'export MONGODB_ADMIN_USER=${MongoDBAdminUsername}'
       InstanceType: !Ref 'NodeInstanceType'
   NodeInstanceRecoveryAlarm:
     Type: AWS::CloudWatch::Alarm
