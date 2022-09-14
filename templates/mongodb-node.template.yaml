@@ -147,7 +147,7 @@ Parameters:
     Type: String
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
-    Default: aws-quickstart
+    Default: aws-mongodb-replicaset
     Type: String
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
@@ -216,7 +216,7 @@ Conditions:
         - i2.8xlarge
   UsingDefaultBucket: !Equals
     - !Ref 'QSS3BucketName'
-    - aws-quickstart
+    - aws-mongodb-replicaset
 Resources:
   ReplicaNodeNetworkInterface:
     Type: AWS::EC2::NetworkInterface
