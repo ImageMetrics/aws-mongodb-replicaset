@@ -181,6 +181,7 @@ echo "  logAppend: true" >> mongod.conf
 echo "  path: /log/mongod.log" >> mongod.conf
 echo "" >> mongod.conf
 echo "storage:" >> mongod.conf
+echo "  oplogMinRetentionHours: 168" >> mongod.conf
 echo "  dbPath: /data" >> mongod.conf
 echo "  journal:" >> mongod.conf
 echo "    enabled: true" >> mongod.conf
@@ -252,6 +253,7 @@ cp mongod.conf /etc/mongod.conf
 sed -i "s/.*port:.*/  port: ${port}/g" /etc/mongod.conf
 echo "replication:" >> /etc/mongod.conf
 echo "  replSetName: ${SHARD}" >> /etc/mongod.conf
+echo "  oplogSizeMB: 10000"
 
 echo CGROUP_DAEMON="memory:mongod" > /etc/sysconfig/mongod
 
