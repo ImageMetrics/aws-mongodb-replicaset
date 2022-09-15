@@ -253,7 +253,7 @@ cp mongod.conf /etc/mongod.conf
 sed -i "s/.*port:.*/  port: ${port}/g" /etc/mongod.conf
 echo "replication:" >> /etc/mongod.conf
 echo "  replSetName: ${SHARD}" >> /etc/mongod.conf
-echo "  oplogSizeMB: 10000"
+echo "  oplogSizeMB: 10000" >> /etc/mongod.conf
 
 echo CGROUP_DAEMON="memory:mongod" > /etc/sysconfig/mongod
 
