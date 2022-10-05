@@ -308,7 +308,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Condition: InstanceRecoverySupported
     Properties:
-      AlarmDescription: EC2 Autorecovery for Node Instance. Autorecover if we fail
+      AlarmDescription: EC2 Status Check Failed System for Node Instance.
         EC2 status checks for 5 minutes.
       Namespace: AWS/EC2
       MetricName: StatusCheckFailed_System
@@ -317,8 +317,6 @@ Resources:
       EvaluationPeriods: 5
       ComparisonOperator: GreaterThanThreshold
       Threshold: 0.0
-      AlarmActions:
-        - !Sub 'arn:${AWS::Partition}:automate:${AWS::Region}:ec2:recover'
       Dimensions:
         - Name: InstanceId
           Value: !Ref 'ReplicaNodeInstance'

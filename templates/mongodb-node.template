@@ -601,7 +601,7 @@
             "Type": "AWS::CloudWatch::Alarm",
             "Condition": "InstanceRecoverySupported",
             "Properties": {
-                "AlarmDescription": "EC2 Autorecovery for Node Instance. Autorecover if we fail EC2 status checks for 5 minutes.",
+                "AlarmDescription": "EC2 Status Check Failed System for Node Instance.",
                 "Namespace": "AWS/EC2",
                 "MetricName": "StatusCheckFailed_System",
                 "Statistic": "Minimum",
@@ -609,24 +609,7 @@
                 "EvaluationPeriods": 5,
                 "ComparisonOperator": "GreaterThanThreshold",
                 "Threshold": 0.0,
-                "AlarmActions": [
-                    {
-                        "Fn::Join": [
-                            "",
-                            [
-                                "arn:",
-                                {
-                                    "Ref": "AWS::Partition"
-                                },
-                                ":automate:",
-                                {
-                                    "Ref": "AWS::Region"
-                                },
-                                ":ec2:recover"
-                            ]
-                        ]
-                    }
-                ],
+                "AlarmActions": [],
                 "Dimensions": [
                     {
                         "Name": "InstanceId",
