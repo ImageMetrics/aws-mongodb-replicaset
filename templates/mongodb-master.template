@@ -62,9 +62,36 @@
                         "QSS3KeyPrefix",
                         "QSS3BucketRegion"
                     ]
+                },
+                {
+                    "Label": {
+                        "default": "TLS Settings"
+                    },
+                    "Parameters": [
+                        "TLS"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "Key and Certificate"
+                    },
+                    "Parameters": [
+                        "Key",
+                        "Certificate"
+                    ],
+                    "Condition": "EnableTLS"
                 }
             ],
             "ParameterLabels": {
+                "TLS": {
+                    "default": "Enable TLS"
+                },
+                "Key": {
+                    "default": "Key File"
+                },
+                "Certificate": {
+                    "default": "Certificate File"
+                }
                 "AvailabilityZones": {
                     "default": "Availability Zones"
                 },
@@ -379,6 +406,26 @@
                 "3"
             ]
         },
+        "TLS": {
+            "Type": "Boolean",
+            "Default": "false"
+        },
+        "Key": {
+            "Type": "String",
+            "Default": "",
+            "MinLength": 1,
+            "MaxLength": 1,
+            "MaxLength: 1024,
+            "ConstraintDescription": "Must be a valid key file."
+        },
+        "Certificate": {
+            "Type": "String",
+            "Default": "",
+            "MinLength": 1,
+            "MaxLength": 1,
+            "MaxLength: 1024,
+            "ConstraintDescription": "Must be a valid certificate file."
+        },
         "ReplicaShardIndex": {
             "Description": "Shard Index of this replica set",
             "Type": "String",
@@ -391,6 +438,14 @@
         }
     },
     "Conditions": {
+        "EnableTLS": {
+            "Fn::Equals": [
+                {
+                    "Ref": "TLS"
+                },
+                "true"
+            ]
+        }
         "CreateThreeReplicaSet": {
             "Fn::Equals": [
                 {
