@@ -91,7 +91,7 @@
                 },
                 "Certificate": {
                     "default": "Certificate File"
-                }
+                },
                 "AvailabilityZones": {
                     "default": "Availability Zones"
                 },
@@ -415,7 +415,7 @@
             "Default": "",
             "MinLength": 1,
             "MaxLength": 1,
-            "MaxLength: 1024,
+            "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid key file."
         },
         "Certificate": {
@@ -423,7 +423,7 @@
             "Default": "",
             "MinLength": 1,
             "MaxLength": 1,
-            "MaxLength: 1024,
+            "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid certificate file."
         },
         "ReplicaShardIndex": {
@@ -445,7 +445,7 @@
                 },
                 "true"
             ]
-        }
+        },
         "CreateThreeReplicaSet": {
             "Fn::Equals": [
                 {
