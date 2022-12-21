@@ -293,7 +293,11 @@
             "Description": "Subnet-ID the existing subnet in your VPC where you want to deploy Secondary node(s)."
         },
         "TLS": {
-            "Type": "Boolean",
+            "Type": "String",
+            "AllowedValues": [
+                    "false",
+                    "true"
+                ],
             "Default": "false"
         },
         "Key": {
