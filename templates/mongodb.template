@@ -302,14 +302,14 @@
         },
         "Key": {
             "Type": "String",
-            "Default": "X",
+            "Default": "",
             "MinLength": 1,
             "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid key file."
         },
         "Certificate": {
             "Type": "String",
-            "Default": "X",
+            "Default": "",
             "MinLength": 1,
             "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid certificate file."
