@@ -302,14 +302,14 @@
         },
         "Key": {
             "Type": "String",
-            "Default": "",
+            "Default": "-----BEGIN PRIVATE KEY----- -----END PRIVATE KEY-----",
             "MinLength": 1,
             "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid key file."
         },
         "Certificate": {
             "Type": "String",
-            "Default": "",
+            "Default": "-----BEGIN CERTIFICATE----- -----END CERTIFICATE-----",
             "MinLength": 1,
             "MaxLength": 1024,
             "ConstraintDescription": "Must be a valid certificate file."
