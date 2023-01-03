@@ -6,6 +6,24 @@
             "ParameterGroups": [
                 {
                     "Label": {
+                        "default": "TLS Settings"
+                    },
+                    "Parameters": [
+                        "TLS"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "Key and Certificate"
+                    },
+                    "Parameters": [
+                        "Key",
+                        "Certificate"
+                    ],
+                    "Condition": "EnableTLS"
+                },
+                {
+                    "Label": {
                         "default": "Network Configuration"
                     },
                     "Parameters": [
@@ -97,6 +115,15 @@
                 },
                 "VolumeType": {
                     "default": "Volume Type"
+                },
+                "TLS": {
+                    "default": "Enable TLS"
+                },
+                "Key": {
+                    "default": "Key File"
+                },
+                "Certificate": {
+                    "default": "Certificate File"
                 }
             }
         }
@@ -264,9 +291,39 @@
         "Secondary1NodeSubnet": {
             "Type": "AWS::EC2::Subnet::Id",
             "Description": "Subnet-ID the existing subnet in your VPC where you want to deploy Secondary node(s)."
+        },
+        "TLS": {
+            "Type": "String",
+            "AllowedValues": [
+                    "false",
+                    "true"
+                ],
+            "Default": "false"
+        },
+        "Key": {
+            "Type": "String",
+            "Default": "",
+            "MinLength": 0,
+            "MaxLength": 1024,
+            "ConstraintDescription": "Must be a valid key file."
+        },
+        "Certificate": {
+            "Type": "String",
+            "Default": "",
+            "MinLength": 0,
+            "MaxLength": 1024,
+            "ConstraintDescription": "Must be a valid certificate file."
         }
     },
     "Conditions": {
+        "EnableTLS": {
+            "Fn::Equals": [
+                {
+                    "Ref": "TLS"
+                },
+                "true"
+            ]
+        },
         "CreateThreeReplicaSet": {
             "Fn::Equals": [
                 {

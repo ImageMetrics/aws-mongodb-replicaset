@@ -138,12 +138,12 @@ check_primary() {
 }
 
 setup_security_common() {
-    DDB_TABLE=$1
-    auth_key=$(./orchestrator.sh -f -n $DDB_TABLE)
-    echo $auth_key > /mongo_auth/mongodb.key
-    chmod 400 /mongo_auth/mongodb.key
-    chown -R mongod:mongod /mongo_auth
-    sed $'s/processManagement:/security: \\\n  authorization: disabled \\\n  keyFile: \/mongo_auth\/mongodb.key \\\n\\\n&/g' /etc/mongod.conf >> /tmp/mongod_sec.txt
+    # DDB_TABLE=$1
+    # auth_key=$(./orchestrator.sh -f -n $DDB_TABLE)
+    # echo $auth_key > /mongo_auth/mongodb.key
+    # chmod 400 /mongo_auth/mongodb.key
+    # chown -R mongod:mongod /mongo_auth
+    sed $'s/processManagement:/security: \\\n  authorization: enabled \\\n  clusterAuthMode: x509 \\\n\\\n&/g' /etc/mongod.conf >> /tmp/mongod_sec.txt
     mv /tmp/mongod_sec.txt /etc/mongod.conf
 }
 
@@ -174,6 +174,13 @@ echo "  port:" >> mongod.conf
 if [ "$version" == "3.6" ] || [ "$version" == "4.0" ] || [ "$version" == "4.2" ] || [ "$version" == "5.0" ] || [ "$version" == "6.0" ]; then
     echo "  bindIpAll: true" >> mongod.conf
 fi
+echo "  tls:" >> mongod.conf
+echo "    mode: requireTLS" >> mongod.conf
+echo "    CAFile: /etc/mongodb/ssl/ca.crt" >> mongod.conf
+echo "    certificateKeyFile: /etc/mongodb/ssl/node.pem" >> mongod.conf
+echo "    clusterFile: /etc/mongodb/ssl/node.pem" >> mongod.conf
+echo "    clusterPassword: $certPassphrase" >> mongod.conf
+echo "    certificateKeyFilePassword: $certPassphrase" >> mongod.conf
 echo "" >> mongod.conf
 echo "systemLog:" >> mongod.conf
 echo "  destination: file" >> mongod.conf
